@@ -5,11 +5,16 @@ class_name Player
 @export var TorqueThrust := 100
 
 var transitioning := false
+var rocket_audio = $RocketAudio
 
 func _process(delta: float) -> void:
 	if not transitioning:
 		if Input.is_action_pressed("boost"):
 			apply_central_force(basis.y * delta * force)
+			if not rocket_audio.is_playing():
+				rocket_audio.play()
+		else:
+			rocket_audio.stop()
 		if Input.is_action_pressed("rotateL"):
 			apply_torque(Vector3(0.0,0.0,delta*TorqueThrust))
 		if Input.is_action_pressed("rotateR"):
@@ -17,12 +22,14 @@ func _process(delta: float) -> void:
 
 func crash_sequence() -> void:
 	transitioning = true
+	$ExplosionAudio.play()
 	print("KABOOM")
 	await get_tree().create_timer(2.5).timeout
 	get_tree().reload_current_scene.call_deferred()
 
 func complete_level(next_level_file) -> void:
 	transitioning = true
+	$SuccessAudio.play()
 	await get_tree().create_timer(2.5).timeout
 	get_tree().change_scene_to_file.call_deferred(next_level_file)
 

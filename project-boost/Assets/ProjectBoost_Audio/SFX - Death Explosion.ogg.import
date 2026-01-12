@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c801nbgr4aewy"
+path="res://.godot/imported/SFX - Death Explosion.ogg-f36f2a8077c72258da0f2a621f1c4ed4.oggvorbisstr"
+
+[deps]
+
+source_file="res://Assets/ProjectBoost_Audio/SFX - Death Explosion.ogg"
+dest_files=["res://.godot/imported/SFX - Death Explosion.ogg-f36f2a8077c72258da0f2a621f1c4ed4.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
