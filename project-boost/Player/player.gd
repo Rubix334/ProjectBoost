@@ -11,6 +11,8 @@ var transitioning := false
 @onready var main_booster: GPUParticles3D = $MainBooster
 @onready var right_booster: GPUParticles3D = $RightBooster
 @onready var left_booster: GPUParticles3D = $LeftBooster
+@onready var explosion_particles: GPUParticles3D = $ExplosionParticles
+@onready var success_particles: GPUParticles3D = $SuccessParticles
 
 
 func _process(delta: float) -> void:
@@ -36,6 +38,7 @@ func _process(delta: float) -> void:
 
 func crash_sequence() -> void:
 	transitioning = true
+	explosion_particles.emitting = true
 	explosion_audio.play()
 	rocket_audio.stop()
 	main_booster.emitting = false
@@ -47,6 +50,7 @@ func crash_sequence() -> void:
 
 func complete_level(next_level_file) -> void:
 	transitioning = true
+	success_particles.emitting = true
 	success_audio.play()
 	rocket_audio.stop()
 	main_booster.emitting = false
