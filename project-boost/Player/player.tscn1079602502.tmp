@@ -35,13 +35,7 @@ stream = ExtResource("3_btcbx")
 [node name="RocketAudio" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("4_gwnis")
 
-[node name="MainBooster" parent="." instance=ExtResource("5_k53q1")]
+[node name="BoosterParticles" parent="." instance=ExtResource("5_k53q1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.0379342, 0)
-
-[node name="RightBooster" parent="." instance=ExtResource("5_k53q1")]
-transform = Transform3D(0.753506, -0.657441, 0, 0.657441, 0.753506, 0, 0, 0, 1, 0.4146552, -0.98267597, 0)
-
-[node name="LeftBooster" parent="." instance=ExtResource("5_k53q1")]
-transform = Transform3D(0.7278326, 0.68575484, 0, -0.6857549, 0.72783256, 0, 0, 0, 1.0000001, -0.42601585, -1.0167572, 0)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
