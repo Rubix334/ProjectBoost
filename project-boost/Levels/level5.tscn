@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=3 uid="uid://b3kihfc16qnie"]
+
+[ext_resource type="PackedScene" uid="uid://ctoyiaswpjje4" path="res://Levels/floor.tscn" id="1_b4htq"]
+[ext_resource type="PackedScene" uid="uid://ceu7l1q37dyq1" path="res://Levels/UI.tscn" id="1_fh8n1"]
+[ext_resource type="Script" uid="uid://d3pe1k1c8wngn" path="res://Levels/landingpad.gd" id="2_fh8n1"]
+[ext_resource type="PackedScene" uid="uid://habfhdya7smn" path="res://Player/player.tscn" id="3_0n3a6"]
+[ext_resource type="Script" uid="uid://cc6ow5ea7lybj" path="res://Levels/moving_obstacle.gd" id="4_fh8n1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t21ke"]
+albedo_color = Color(0.6627451, 0.7058824, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i4kf4"]
+albedo_color = Color(0.21568628, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0n3a6"]
+size = Vector3(1, 1, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_b3501"]
+size = Vector3(1, 1, 2.663086)
+
+[node name="Level" type="Node3D"]
+
+[node name="UI" parent="." instance=ExtResource("1_fh8n1")]
+
+[node name="floor" parent="." instance=ExtResource("1_b4htq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
+
+[node name="launchpad" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 0)
+use_collision = true
+size = Vector3(2, 0.5, 2)
+material = SubResource("StandardMaterial3D_t21ke")
+
+[node name="landingpad" type="CSGBox3D" parent="." groups=["Goal"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
+use_collision = true
+size = Vector3(2, 0.5, 2)
+material = SubResource("StandardMaterial3D_i4kf4")
+script = ExtResource("2_fh8n1")
+file_path = "uid://b3kihfc16qnie"
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9804708, 0.19666493, 0, -0.19666493, 0.9804708, 0, 6.181, 7.787)
+
+[node name="Player" parent="." instance=ExtResource("3_0n3a6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.010159, 0.96320415, 0)
+
+[node name="MeshInstance3D3" type="CSGBox3D" parent="." groups=["Hazard"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.036, 8, -1.557)
+size = Vector3(1, 3.7313232, 6.64209)
+
+[node name="MeshInstance3D2" type="CSGBox3D" parent="." groups=["Hazard"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.126, 8.419556, -0.7821631)
+size = Vector3(1, 4.2521973, 5.6813965)
+
+[node name="MeshInstance3D" type="CSGBox3D" parent="." groups=["Hazard"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3316469, -0.583364)
+size = Vector3(1, 5.7512207, 5.7976074)
+
+[node name="MovingObstacle" type="AnimatableBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.0941286, 5.251601, -0.75024414)
+script = ExtResource("4_fh8n1")
+destination = Vector3(10, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MovingObstacle"]
+mesh = SubResource("BoxMesh_0n3a6")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MovingObstacle"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.83154297)
+shape = SubResource("BoxShape3D_b3501")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://habfhdya7smn"]
+[gd_scene load_steps=21 format=3 uid="uid://habfhdya7smn"]
 
 [ext_resource type="Script" uid="uid://bs3h1jc2ohxfv" path="res://Player/player.gd" id="1_l8h54"]
 [ext_resource type="AudioStream" uid="uid://c801nbgr4aewy" path="res://Assets/ProjectBoost_Audio/SFX - Death Explosion.ogg" id="2_4ntmi"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://jfwajmrh6ca7" path="res://Assets/ProjectBoost_OneshotParticles/18_PB_G3D - One Shot Particles/Particles/success_particles.tscn" id="7_vtle1"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_l8h54"]
+height = 1.6489258
+radius = 0.3515625
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_btcbx"]
 
@@ -17,23 +19,46 @@ top_radius = 0.2
 bottom_radius = 0.2
 height = 1.0
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x3vf3"]
+albedo_color = Color(0.5609549, 0.5609549, 0.5609549, 1)
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_od3ui"]
+material = SubResource("StandardMaterial3D_x3vf3")
 top_radius = 0.1
 bottom_radius = 0.15
 height = 0.35
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vtle1"]
+albedo_color = Color(1, 0.49803922, 0.14509805, 1)
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_00tjw"]
+material = SubResource("StandardMaterial3D_vtle1")
 top_radius = 0.0
 bottom_radius = 0.2
 height = 0.5
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_od3ui"]
+albedo_color = Color(0.48570347, 0.48570353, 0.48570347, 1)
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_x3vf3"]
+material = SubResource("StandardMaterial3D_od3ui")
 top_radius = 0.1
 bottom_radius = 0.3
 height = 0.5
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_00tjw"]
+albedo_color = Color(1, 0, 0.047058824, 1)
+
 [sub_resource type="PrismMesh" id="PrismMesh_vtle1"]
+material = SubResource("StandardMaterial3D_00tjw")
 size = Vector3(0.5, 0.3, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_apopc"]
+albedo_color = Color(0.88235295, 0.53333336, 0.25490198, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5htga"]
+material = SubResource("StandardMaterial3D_apopc")
+size = Vector3(0.05, 1, 0.4)
 
 [node name="Player" type="RigidBody3D"]
 axis_lock_linear_z = true
@@ -44,8 +69,10 @@ max_contacts_reported = 10
 linear_damp = 1.0
 angular_damp = 3.0
 script = ExtResource("1_l8h54")
+starting_fuel = 200
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1784668, 0)
 shape = SubResource("CylinderShape3D_l8h54")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -106,5 +133,8 @@ skeleton = NodePath("../FlapR")
 [node name="FlapR" type="MeshInstance3D" parent="Body"]
 transform = Transform3D(0.9999045, 0.013822556, 0, -0.013822556, 0.9999045, 0, 0, 0, 1, 0.19855362, 0.08950877, 0)
 mesh = SubResource("PrismMesh_vtle1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body"]
+mesh = SubResource("BoxMesh_5htga")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
